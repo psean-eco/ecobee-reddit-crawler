@@ -20,13 +20,9 @@ def post_print(reddit):
     for submission in posts:
         story={}
         story["title"] = submission.title
-        #print(title.format(heading=submission.title))
         story ["upvotes"] = submission.ups
-        #print(upvotes.format(votes=submission.ups))
-        story["link"] = "https://www.reddit.com", submission.permalink
-        #print(link.format(link=submission.permalink))
+        story["link"] = "https://www.reddit.com"+ submission.permalink
         story ["totalComments"] = submission.num_comments
-        #print(comments.format(comments=submission.num_comments))
         arr.append(story)
 
     post_to_slack(arr)
@@ -44,11 +40,12 @@ def main():
                              password=password)
         post_print(reddit)
 
-    except prawcore.exceptions.OAuthException:
-        print("could not log in ")
+    except prawcore.exceptions.OAuthException as e :
+        print("could not log in because: " + str(e))
 
-    except prawcore.exceptions:
-        print("unable to create reddit instance")
+    except prawcore.exceptions.ResponseException as e:
+        print("unable to create reddit instance because:" + str(e))
+
 
 
 if __name__ == '__main__':
