@@ -31,7 +31,7 @@ def post_print(reddit):
 def post_to_slack(story):
     payload={}
     link_text = "<{}| Read More>".format(story['link'])
-    payload['txt'] = "--------------------"+"\n"+"_"+ ":triangular_flag_on_post: "+ story['title'] + "_" + " " +" " + link_text  + "\n" +  "Upvotes: {}".format(story['upvotes'])
+    payload['text'] = "--------------------"+"\n"+"_"+ ":triangular_flag_on_post: "+ story['title'] + "_" + " " +" " + link_text  + "\n" +  "Upvotes: {}".format(story['upvotes'])
     response = requests.post(
         webhook_url, json=payload,
         headers={'Content-Type': 'application/json'}
